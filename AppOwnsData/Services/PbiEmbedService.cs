@@ -154,6 +154,7 @@ namespace AppOwnsData.Services
 
             // Create a request for getting Embed token 
             // This method works only with new Power BI V2 workspace experience
+            // ToDo: We can add identities here
             var tokenRequest = new GenerateTokenRequestV2(
 
                 reports: new List<GenerateTokenRequestV2Report>() { new GenerateTokenRequestV2Report(reportId) },
@@ -161,6 +162,19 @@ namespace AppOwnsData.Services
                 datasets: datasetIds.Select(datasetId => new GenerateTokenRequestV2Dataset(datasetId.ToString())).ToList(),
 
                 targetWorkspaces: targetWorkspaceId != Guid.Empty ? new List<GenerateTokenRequestV2TargetWorkspace>() { new GenerateTokenRequestV2TargetWorkspace(targetWorkspaceId) } : null
+
+                //new List<EffectiveIdentity>()
+                //{
+                //    new EffectiveIdentity()
+                //    {
+                //        Roles = new List<string>()
+                //        {
+                //            "< CompanyRole1 >" // ToDo: We should get probably get this dynamically based on which customer/company/user is logged in.
+                //                           // In the demo we could get it from some UI interaction like a combobox.
+                //        },
+                //        Username = "< Customer Username 1 >"
+                //    }
+                //}
             );
 
             // Generate Embed token
